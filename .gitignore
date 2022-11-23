@@ -258,3 +258,4 @@ fabric.properties
 weights*
 tensorrt*
 /env*
+/wandb

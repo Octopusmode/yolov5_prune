@@ -1,0 +1,12 @@
+names:
+- person
+- car
+- motorcycle
+- bus
+- truck
+nc: 5
+path: /home/mosminin/fiftyone/coco-2017
+# test: ./images/test/
+train: ./images/train/
+val: ./images/validation/
+# validation: ./images/validation/

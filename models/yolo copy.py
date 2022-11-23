@@ -83,7 +83,7 @@ class Detect(nn.Module):
 
 
 class Model(nn.Module):
-    def __init__(self, cfg='yolov5n.yaml', ch=3, nc=None, anchors=None, mask_bn=None):  # model, input channels, number of classes
+    def __init__(self, cfg='yolov5s.yaml', ch=3, nc=None, anchors=None, mask_bn=None):  # model, input channels, number of classes
         super().__init__()
         if isinstance(cfg, dict):
             self.yaml = cfg  # model dict
@@ -428,7 +428,7 @@ if __name__ == '__main__':
 
     # Profile
     if opt.profile:
-        img = torch.rand(8 if torch.cuda.is_available() else 1, 3, 480, 480).to(device)
+        img = torch.rand(8 if torch.cuda.is_available() else 1, 3, 640, 640).to(device)
         y = model(img, profile=True)
 
     # Test all models

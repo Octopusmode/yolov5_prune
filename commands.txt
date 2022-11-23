@@ -2,4 +2,18 @@ Train:
 python train.py --data VOC.yaml --cfg yolov5n.yaml --weights '' --batch-size 16 --device 0 --epochs 10 --name voc --optimizer AdamW --data data/VOC_custom.yaml
 
 Sparse:
-python train.py --batch 32 --epochs 10 --weights /home/mosminin/yolov5_prune/runs/train/voc6/weights/best.pt --data data/VOC_custom.yaml --cfg models/yolov5n.yaml --name voc_sparsity --optimizer AdamW --bn_sparsity --sparsity_rate 0.00005 --device 0  
+python train.py --batch 32 --epochs 10 --weights /home/mosminin/yolov5_prune/runs/train/voc6/weights/best.pt --data data/VOC_custom.yaml --cfg models/yolov5n.yaml --name voc_sparsity --optimizer AdamW --bn_sparsity --sparsity_rate 0.00005 --device 0
+
+
+
+
+
+
+
+python export.py --weights runs/train/fire_finetuned/weights/best.pt --include onnx --dynamic # OpenCV не поддерживает dynamic сука
+
+python val.py --weights runs/train/fire_finetuned/weights/best.onnx --data data/fire.yaml --img 640
+
+
+# Coco person veh #на тренинге попробовать увеличить батч в 2 раза
+python train.py --data VOC.yaml --cfg yolov5n.yaml --weights '' --batch-size 32 --device 0 --epochs 150 --name coco_pv_bl --optimizer AdamW --imgsz 480
