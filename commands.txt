@@ -14,4 +14,8 @@ python train.py --data VOC.yaml --cfg yolov5n.yaml --weights '' --batch-size 32 
 
 
 Тренинг на оптимизированном COCO
-python train.py --data /home/mosminin/fiftyone/coco-2017/dataset.yaml --cfg yolov5n.yaml --weights '' --batch-size 48 --device 0 --epochs 200 --name coco_pv_bl --optimizer AdamW --imgsz 480
+python train.py --data /home/mosminin/fiftyone/coco-2017/dataset.yaml --cfg yolov5n.yaml --weights '' --batch-size 48 --device 0 --epochs 200 --name coco_pv_bl --optimizer AdamW --imgsz 512
+
+
+python train.py --data /home/mosminin/fiftyone/coco_pv_export/dataset.yaml --cfg yolov5s.yaml --weights '' --batch-size 48 --epochs 200 --name coco_pv_bl --optimizer AdamW --imgsz 512 --cache --device 0
+python train.py --data /home/mosminin/fiftyone/coco_pv_export/dataset.yaml --cfg models/yolov5s.yaml --weights /home/mosminin/yolov5_prune/runs/train/coco_pv_bl11/weights/best.pt --batch 48 --epochs 300 --name coco_pv_sp --optimizer AdamW --bn_sparsity --sparsity_rate 0.0005 --device 0 --imgsz 512

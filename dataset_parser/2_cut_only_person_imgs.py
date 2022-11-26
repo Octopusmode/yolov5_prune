@@ -1,9 +1,9 @@
 ### Cкрипт удаляет 50% изображений и аннотаций из датасета yolo, где присутствуют только объекты person
-
+data_path = '/home/mosminin/fiftyone/coco_pv_export'
 from pathlib import Path
 data_type = 'train'
-files = Path(f'/home/mosminin/fiftyone/coco-2017/labels/{data_type}/').glob('*.txt')
-img_path = f'/home/mosminin/fiftyone/coco-2017/images/{data_type}'
+files = Path(f'{data_path}/labels/{data_type}/').glob('0*.txt')
+img_path = f'{data_path}/images/{data_type}'
 name_list = list(map(str, files))
 print(len(name_list), name_list[:3], sep='\n')
 iters = 0
@@ -15,19 +15,19 @@ from random import randrange
 
 def process_file(file_name):
     global iters                  
-    def chance(percent=50):  # вероятность
+    def chance(percent=15):  # вероятность
         return randrange(100) < percent
     
-    def rename_label(f_name, addition = '_'): # переименовывание файла
+    def rename_label(f_name, addition = ''): # переименовывание файла
         name = Path(f_name)
         # print(f"TXT new fn: {name.parent}{name.stem}{name.suffix}{addition}" )
-        name.rename(Path(name.parent, f"{name.stem}{name.suffix}{addition}")) #! Переименовываем файл
+        name.rename(Path(name.parent, f"_{name.stem}{name.suffix}{addition}")) #! Переименовываем файл
         
     def rename_img(img_path, file_name, addition = '_'): # переименовывание файла      
         txt_name = Path(file_name)
         img_name = Path(img_path, f'{txt_name.stem}.jpg')
         try:
-            to_rename = Path(img_name.parent, f"{txt_name.stem}{img_name.suffix}_")
+            to_rename = Path(img_name.parent, f"_{txt_name.stem}{img_name.suffix}")
             # print(f'IMG name={img_name}, txt_name={txt_name.stem}, name_parent={img_name.parent} -> {to_rename}\n')
             os.rename(img_name, to_rename) #! Переименовываем файл
         except FileNotFoundError:
