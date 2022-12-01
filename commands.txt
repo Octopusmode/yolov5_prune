@@ -20,3 +20,11 @@ python train.py --data /home/mosminin/fiftyone/coco-2017/dataset.yaml --cfg yolo
 python train.py --data /home/mosminin/fiftyone/coco_pv_export/dataset.yaml --cfg yolov5s.yaml --weights '' --batch-size 48 --epochs 200 --name coco_pv_bl --optimizer AdamW --imgsz 512 --cache --device 0
 python train.py --data /home/mosminin/fiftyone/coco_pv_export/dataset.yaml --cfg models/yolov5s.yaml --weights /home/mosminin/yolov5_prune/runs/train/coco_pv_bl11/weights/best.pt --batch 48 --epochs 300 --name coco_pv_sp --optimizer AdamW --bn_sparsity --sparsity_rate 0.0005 --device 0 --imgsz 512
 # Попробовать обрезать 0.385
+
+python prune.py --weights runs/train/coco_pv_sp_reduced_sr3/weights/best.pt --data /home/mosminin/fiftyone/coco_pv_export/dataset.yaml --cfg models/yolov5s.yaml --imgsz 512
+
+python train.py --img 512 --batch 32 --epochs 100 --weights runs/val/coco_pv_v2_pr/pruned_model.pt  --data /home/mosminin/fiftyone/coco_pv_export/dataset.yaml --cfg models/yolov5s.yaml --name coco_pv_v2_ft --device 0 --optimizer AdamW --ft_pruned_model --hyp hyp.finetune_prune.yaml
+
+python export.py --weights runs/train/coco_pv_v2_ft/weights/best.pt --include onnx --name coco_pv_onnx --data /home/mosminin/fiftyone/coco_pv_export/dataset.yaml --imgsz 512
+
+python detect.py --weights runs/train/coco_pv_v2_ft/weights/best.onnx --img 512
