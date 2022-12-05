@@ -8,6 +8,12 @@
 		},
 		{
 			"path": "../fiftyone"
+		},
+		{
+			"path": "../yprune8"
+		},
+		{
+			"path": "../mmlab"
 		}
 	],
 	"settings": {}
